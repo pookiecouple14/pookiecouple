@@ -815,7 +815,7 @@ const FormView = () => {
   // START SCREEN
   if (!hasStarted) {
     return (
-      <div className="min-h-screen pb-28 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 p-3 md:p-6">
+      <div className="min-h-screen pb-36 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 p-3 md:p-6">
         <PromotionalBanner />
         <div className="max-w-2xl mx-auto space-y-4">
           {/* Header */}

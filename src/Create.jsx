@@ -1252,7 +1252,7 @@ function Create() {
   const progressPercent = step > 1 ? ((step - 1) / (totalSteps - 1)) * 100 : 0;
 
   return (
-    <div className="min-h-screen md:pb-28 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 p-3 md:p-6">
+    <div className="min-h-screen md:pb-36 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 p-3 md:p-6">
       {/* Main Dialog */}
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent>

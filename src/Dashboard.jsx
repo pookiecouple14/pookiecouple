@@ -241,7 +241,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen pb-28 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 relative">
+    <div className="min-h-screen pb-36 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 relative">
       {/* Logout Confirmation Modal */}
       {showLogoutConfirm && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
