@@ -95,7 +95,7 @@ const Input = React.forwardRef(
     return (
       <input
         type={type}
-        className={`flex h-11 w-full rounded-xl border-2 border-pink-100 bg-white px-3 py-2.5 text-sm md:text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-pink-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-200 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 focus:border-pink-300 ${className}`}
+        className={`flex h-11 w-full rounded-xl border-2 border-pink-100 bg-white px-3 py-2.5 text-sm md:text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-pink-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-200 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 focus:border-pink-300 ${className}`}
         ref={ref}
         {...props}
       />
@@ -106,7 +106,7 @@ const Input = React.forwardRef(
 const Textarea = React.forwardRef(({ className = "", ...props }, ref) => {
   return (
     <textarea
-      className={`flex min-h-[80px] w-full rounded-xl border-2 border-pink-100 bg-white px-3 py-2.5 text-sm md:text-base ring-offset-background placeholder:text-pink-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-200 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none transition-all duration-200 focus:border-pink-300 ${className}`}
+      className={`flex min-h-[80px] w-full rounded-xl border-2 border-pink-100 bg-white px-3 py-2.5 text-sm md:text-base ring-offset-background placeholder:text-pink-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-200 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none transition-all duration-200 focus:border-pink-300 ${className}`}
       ref={ref}
       {...props}
     />
@@ -1707,9 +1707,9 @@ function Create() {
                       <Heart className="h-8 w-8 text-pink-500" />
                     </div>
                     <div>
-                      <CardTitle>Your Love Story</CardTitle>
+                      <CardTitle>Memory Check: Love Edition</CardTitle>
                       <CardDescription>
-                        Tell us about your beautiful relationship
+                        A sweet test of your partner’s memory
                       </CardDescription>
                     </div>
                   </div>
@@ -1876,7 +1876,7 @@ function Create() {
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.3 }}
                             >
-                              What about the partner that grows your future?
+                              Also, find the career you’ll love for life
                               💼✨
                             </motion.p>
                           </div>

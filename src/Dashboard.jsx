@@ -975,7 +975,7 @@ export default function Dashboard() {
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.3 }}
                             >
-                              What about the partner that grows your future?
+                              Also, find the career you’ll love for life
                               💼✨
                             </motion.p>
                           </div>
