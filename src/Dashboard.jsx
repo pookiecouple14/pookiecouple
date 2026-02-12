@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import {
+  HeartHandshake,
+  Unlock,
+  Lock,
+  Star,
   Heart,
   LogOut,
   Calendar,
@@ -26,6 +30,212 @@ import {
   Briefcase,
   ArrowRight,
 } from "lucide-react";
+
+ // ---------- Enhanced Swipe‑to‑unlock career banner (fixed ref error) ----------
+const SwipeToUnlockCareer = () => {
+  const trackRef = useRef(null);
+  const [trackWidth, setTrackWidth] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const thumbWidth = 56; // w-14 = 56px
+
+  const dragX = useMotionValue(0);
+  const labelOpacity = useTransform(dragX, [0, trackWidth - thumbWidth], [1, 0]);
+
+  useEffect(() => {
+    const measure = () => {
+      if (trackRef.current) {
+        setTrackWidth(trackRef.current.offsetWidth);
+      }
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  const handleDragEnd = (event, info) => {
+    setIsDragging(false);
+    const threshold = trackWidth - thumbWidth - 20;
+    if (info.point.x >= threshold) {
+      window.open(
+        "https://www.errormakesclever.com/valentine?workshop_id=67&source=Webinar_career_love_game",
+        "_blank"
+      );
+    }
+    animate(dragX, 0, { type: "spring", stiffness: 400, damping: 30 });
+  };
+
+  const handleDragStart = () => {
+    setIsDragging(true);
+  };
+
+  return (
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: 100, opacity: 0 }}
+      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+      className="fixed bottom-0 left-0 right-0 z-50"
+    >
+      <motion.div
+        className="relative m-3 md:m-4 rounded-2xl md:rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-red-500 text-white p-4 md:p-5 shadow-2xl border border-pink-300/30 backdrop-blur-sm overflow-hidden"
+        whileHover={{ scale: 1.01 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        {/* Animated background gradient */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent"
+          animate={{ x: ["-100%", "200%"] }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            repeatDelay: 1,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Floating hearts and stars */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.2, 0.5, 0.2],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            >
+              {i % 2 === 0 ? (
+                <Heart className="w-2 h-2 text-white/40 fill-white/40" />
+              ) : (
+                <Star className="w-2 h-2 text-white/40 fill-white/40" />
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
+            {/* Left side – enhanced icon + text */}
+            <div className="flex items-center gap-4 flex-1 w-full md:w-auto">
+              <motion.div
+                className="bg-white/20 p-3 rounded-xl backdrop-blur-sm flex-shrink-0"
+                animate={{ 
+                  rotate: [0, 10, -10, 0],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{ 
+                  rotate: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                  scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                }}
+              >
+                <Briefcase className="w-6 h-6 md:w-7 md:h-7 text-white drop-shadow-lg" />
+              </motion.div>
+
+              <div className="flex-1">
+                <motion.h4
+                  className="font-bold text-white text-base md:text-xl mb-1 drop-shadow-md flex items-center gap-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  Found your soulmate? 
+                  <HeartHandshake className="w-5 h-5 inline-block text-pink-200" />
+                </motion.h4>
+                <motion.p
+                  className="text-sm md:text-base text-pink-100 leading-tight drop-shadow"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  Also, find the career you’ll love for life ✨
+                </motion.p>
+              </div>
+            </div>
+
+            {/* Right side – Enhanced swipe slider */}
+            <div className="flex-shrink-0 w-full md:w-auto">
+              <div className="flex items-center gap-3">
+                <motion.div
+                  className="hidden md:block text-xs text-pink-100"
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <Lock className="w-4 h-4" />
+                </motion.div>
+                
+                <div
+                  ref={trackRef}
+                  className="relative w-full md:w-96 h-14 md:h-16 bg-white/25 backdrop-blur-md rounded-full p-1.5 flex items-center shadow-inner"
+                >
+                  <motion.span
+                    style={{ opacity: labelOpacity }}
+                    className="absolute left-1/2 -translate-x-1/2 text-xs md:text-sm font-medium text-white/90 pointer-events-none whitespace-nowrap"
+                  >
+                    {isDragging ? "Release to unlock →" : "Slide to unlock →"}
+                  </motion.span>
+
+                  <motion.div
+                    drag="x"
+                    dragConstraints={{
+                      left: 0,
+                      right: trackWidth - thumbWidth,
+                    }}
+                    dragElastic={0.1}
+                    dragMomentum={false}
+                    style={{ x: dragX }}
+                    onDragStart={handleDragStart}
+                    onDragEnd={handleDragEnd}
+                    className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-full shadow-xl flex items-center justify-center cursor-grab active:cursor-grabbing"
+                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {isDragging ? (
+                      <Unlock className="w-6 h-6 md:w-7 md:h-7 text-pink-600" />
+                    ) : (
+                      <ArrowRight className="w-6 h-6 md:w-7 md:h-7 text-pink-600" />
+                    )}
+                  </motion.div>
+                </div>
+                
+                <motion.div
+                  className="hidden md:block text-xs text-pink-100"
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                >
+                  <Unlock className="w-4 h-4" />
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Animated glow effect */}
+        <motion.div
+          className="absolute bottom-0 left-1/4 right-1/4 h-1 bg-gradient-to-r from-transparent via-white/60 to-transparent rounded-full"
+          animate={{
+            opacity: [0.2, 0.6, 0.2],
+            scaleX: [0.8, 1.2, 0.8],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+};
 
 export default function Dashboard() {
   const [forms, setForms] = useState([]);
@@ -240,8 +450,10 @@ export default function Dashboard() {
     );
   }
 
+ 
+
   return (
-    <div className="min-h-screen pb-36 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 relative">
+    <div className="min-h-screen pb-40 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 relative">
       {/* Logout Confirmation Modal */}
       {showLogoutConfirm && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -878,154 +1090,7 @@ export default function Dashboard() {
           )}
         </div>
       </div>
-   <motion.div
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 100, opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                  className="fixed bottom-0 left-0 right-0 z-50"
-                >
-                  <motion.div
-                    className="relative m-3 md:m-0 rounded-2xl md:rounded-none bg-gradient-to-br from-pink-500 via-rose-500 to-red-500 text-white p-4 md:p-6 shadow-2xl border-t border-pink-300/50 backdrop-blur-sm overflow-hidden md:rounded-t-3xl"
-                    whileHover={{ scale: 1.005 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    {/* Animated background shimmer */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-                      animate={{
-                        x: ["-100%", "200%"],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        repeatDelay: 1,
-                        ease: "easeInOut",
-                      }}
-                    />
-
-                    {/* Floating particles effect */}
-                    <div className="absolute inset-0 overflow-hidden">
-                      {[...Array(8)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute w-1 h-1 bg-white/30 rounded-full"
-                          style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                          }}
-                          animate={{
-                            y: [0, -20, 0],
-                            opacity: [0.3, 0.6, 0.3],
-                            scale: [1, 1.5, 1],
-                          }}
-                          transition={{
-                            duration: 2 + Math.random() * 2,
-                            repeat: Infinity,
-                            delay: Math.random() * 2,
-                          }}
-                        />
-                      ))}
-                    </div>
-
-                    {/* Content Container - Centered on desktop */}
-                    <div className="relative z-10 max-w-7xl mx-auto">
-                      <div className="flex items-center justify-between gap-4 md:gap-6">
-                        {/* Left side - Icon + Text */}
-                        <div className="flex items-center gap-3 md:gap-4 flex-1">
-                          {/* Animated icon container */}
-                          <motion.div
-                            className="bg-white/20 p-2.5 md:p-3 rounded-xl backdrop-blur-sm flex-shrink-0"
-                            animate={{
-                              rotate: [0, 5, -5, 0],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }}
-                          >
-                            <motion.div
-                              animate={{
-                                scale: [1, 1.1, 1],
-                              }}
-                              transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                              }}
-                            >
-                              <Briefcase className="w-5 h-5 md:w-6 md:h-6 text-white drop-shadow-lg" />
-                            </motion.div>
-                          </motion.div>
-
-                          {/* Content */}
-                          <div className="flex-1">
-                            <motion.h4
-                              className="font-bold text-white text-sm md:text-lg mb-0.5 md:mb-1 drop-shadow-md"
-                              initial={{ opacity: 0, y: 5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.2 }}
-                            >
-                              Found your life partner? 👀
-                            </motion.h4>
-                            <motion.p
-                              className="text-xs md:text-base text-pink-50 leading-tight drop-shadow"
-                              initial={{ opacity: 0, y: 5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.3 }}
-                            >
-                              Also, find the career you’ll love for life
-                              💼✨
-                            </motion.p>
-                          </div>
-                        </div>
-
-                        {/* Right side - CTA button */}
-                        <motion.button
-                          // onClick={handleCareerRedirect}
-                          className="bg-white text-pink-600 hover:bg-pink-50 font-bold px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-xs md:text-sm transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group flex-shrink-0"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.4 }}
-                        >
-                          <span className="hidden sm:inline font-semibold">
-                            Explore Career Growth
-                          </span>
-
-                          <motion.div
-                            animate={{
-                              x: [0, 3, 0],
-                            }}
-                            transition={{
-                              duration: 1.5,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }}
-                          >
-                            <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
-                          </motion.div>
-                        </motion.button>
-                      </div>
-                    </div>
-
-                    {/* Pulsing glow effect at the top */}
-                    <motion.div
-                      className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white to-transparent"
-                      animate={{
-                        opacity: [0.3, 0.6, 0.3],
-                        scaleX: [0.8, 1, 0.8],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  </motion.div>
-                </motion.div>
+ <SwipeToUnlockCareer />
     </div>
   );
 }
