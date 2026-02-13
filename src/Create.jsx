@@ -872,7 +872,7 @@ function Create() {
     try {
       // Use login endpoint for resend (same as login page)
       const response = await axios.post(
-        `/auth/login`,
+        `/auth/resend-otp`,
         { email: email.trim() },
         { withCredentials: true },
       );
