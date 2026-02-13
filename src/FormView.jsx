@@ -1043,7 +1043,7 @@ const FormView = () => {
                 {form.yourSpouseName} & {form.yourName}
               </h1>
               <p className="text-gray-600 text-lg mb-8">
-                How well do you know each other? 💕
+                How well do you know each other? 
               </p>
 
               <div className="flex items-center justify-center gap-8 mb-10">
@@ -1051,7 +1051,7 @@ const FormView = () => {
                   whileHover={{ scale: 1.05 }}
                   className="text-center"
                 >
-                  <div className="w-24 h-24 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full mx-auto mb-3 flex items-center justify-center border-4 border-pink-200 shadow-lg">
+                  <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full mx-auto mb-3 flex items-center justify-center border-4 border-pink-200 shadow-lg">
                     <span className="text-3xl font-bold text-pink-600">
                       {form.yourSpouseName?.charAt(0)?.toUpperCase() || "Y"}
                     </span>
@@ -1072,7 +1072,7 @@ const FormView = () => {
                   whileHover={{ scale: 1.05 }}
                   className="text-center"
                 >
-                  <div className="w-24 h-24 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full mx-auto mb-3 flex items-center justify-center border-4 border-purple-200 shadow-lg">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full mx-auto mb-3 flex items-center justify-center border-4 border-purple-200 shadow-lg">
                     <span className="text-3xl font-bold text-purple-600">
                       {form.yourName?.charAt(0)?.toUpperCase() || "P"}
                     </span>
@@ -1538,20 +1538,10 @@ const FormView = () => {
                   ))}
 
                   {revealStage === "shaking" && (
-                    <motion.div
-                      className="flex flex-col items-center justify-center text-center"
-                      animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
-                      transition={{ duration: 0.5, repeat: Infinity }}
-                    >
-                      <Gift className="w-32 h-32 md:w-40 md:h-40 text-white drop-shadow-2xl" />
-                      <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-white font-bold text-xl md:text-2xl mt-6 drop-shadow-lg"
-                      >
-                        Scratching...
-                      </motion.p>
-                    </motion.div>
+                    
+                      
+                      <img src={love} alt="" className="w-48 md:w-56 drop-shadow-2xl"/>
+                     
                   )}
 
                   {revealStage === "opening" && (
@@ -1561,7 +1551,7 @@ const FormView = () => {
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 0.8 }}
                     >
-                      <Heart className="w-36 h-36 md:w-44 md:h-44 text-white fill-white drop-shadow-2xl" />
+                      <Heart className="w-32 h-32 md:w-44 md:h-44 text-rose-500 fill-rose-500 drop-shadow-2xl" />
                       <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -1603,7 +1593,7 @@ const FormView = () => {
                         <img src={love} alt="" className="w-20" />
                       </motion.div>
 
-                      <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent text-center">
+                      <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent">
                         Your Special Message
                       </h1>
 
@@ -1668,7 +1658,7 @@ const FormView = () => {
                           A Beautiful Memory
                         </h4>
                       </div>
-                      <div className="rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
+                      <div className="rounded-2xl overflow-hidden shadow-2xl">
                         <img
                           src={form.revealImage}
                           alt="From your partner"
@@ -1996,7 +1986,7 @@ const FormView = () => {
                 {/* Main card with glassmorphism */}
                 <div className="relative backdrop-blur-xl bg-gradient-to-br from-white/95 to-rose-50/95 border border-white/50">
                   {/* Romantic header with animated border */}
-                  <div className="relative px-6 pt-8 pb-6 overflow-hidden">
+                  <div className="relative px-6 pt-6 pb-2 overflow-hidden">
                     {/* Decorative top border */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-400 via-pink-400 to-red-400" />
 
@@ -2005,31 +1995,23 @@ const FormView = () => {
                         <motion.div
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          className="flex items-center gap-3 mb-2"
+                          className="flex items-center flex-wrap gap-3 mb-2"
                         >
                           <h3 className="text-2xl font-bold bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 bg-clip-text text-transparent">
                             💝 From {form.yourSpouseName}
                           </h3>
                           <span className="px-3 py-1 bg-rose-100 text-rose-700 text-xs font-semibold rounded-full border border-rose-200 shadow-sm">
-                            Secret Valentine 💌
+                            Secret Valentine Surprise Love 💌
                           </span>
                         </motion.div>
 
-                        <motion.p
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.1 }}
-                          className="text-gray-600 flex items-center gap-2 text-base"
-                        >
-                          <span className="w-2 h-2 bg-rose-400 rounded-full animate-pulse" />
-                          A special love letter is waiting for you...
-                        </motion.p>
+                        
                       </div>
                     </div>
                   </div>
 
                   {/* Scratch area - Valentine's themed */}
-                  <div className="relative h-[32rem] md:h-[36rem] cursor-pointer select-none touch-none group">
+                  <div className="relative h-[22rem] md:h-[28rem] cursor-pointer select-none touch-none group">
                     {/* Romantic background content */}
                     <div className="absolute inset-0 flex items-center justify-center p-8">
                       <div className="text-center max-w-md mx-auto space-y-8">
@@ -2074,105 +2056,13 @@ const FormView = () => {
                             {/* <div className="relative w-28 h-28 bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 rounded-3xl flex items-center justify-center shadow-2xl">
                               <Heart className="w-14 h-14 text-white fill-white drop-shadow-2xl" />
                             </div> */}
-                            <img src={love} alt="" className="relative w-28 h-28"/>
+                            <img src={love} alt="" className="relative w-40"/>
                           </motion.div>
                         </div>
 
-                        {form.revealText ? (
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="space-y-6"
-                          >
-                            {/* Romantic message preview */}
-                            <div className="relative">
-                              <div className="absolute inset-0 bg-gradient-to-r from-rose-200/50 to-pink-200/50 rounded-3xl blur-xl" />
-                              <div className="relative bg-white/90 blur-xs backdrop-blur-sm rounded-3xl p-6 border border-white shadow-xl">
-                                <div className="flex justify-center mb-3">
-                                  <span className="text-4xl">💌</span>
-                                </div>
-                                <p className="text-gray-700 text-lg leading-relaxed font-light italic">
-                                  "{form.revealText.slice(0, 120)}"
-                                </p>
-                                {form.revealText.length > 120 && (
-                                  <span className="text-rose-500 font-medium mt-2 block">
-                                    Continue scratching to read more...
-                                  </span>
-                                )}
-                              </div>
-                            </div>
+                        
 
-                            {/* Romantic scratch hint */}
-                            <motion.div
-                              animate={{
-                                y: [0, -5, 0],
-                              }}
-                              transition={{ duration: 1.8, repeat: Infinity }}
-                              className="flex items-center justify-center gap-3"
-                            >
-                              <div className="bg-gradient-to-r from-rose-100 to-pink-100 px-6 py-3 rounded-full shadow-lg">
-                                <span className="text-rose-700 font-medium flex items-center gap-2">
-                                  ✨ Scratch to reveal the rest
-                                  <ArrowRight className="w-4 h-4" />
-                                </span>
-                              </div>
-                            </motion.div>
-                          </motion.div>
-                        ) : (
-                          <motion.div
-                            initial={{ scale: 0.9 }}
-                            animate={{ scale: 1 }}
-                            className="space-y-6"
-                          >
-                            <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white">
-                              <div className="flex justify-center gap-2 mb-4">
-                                {[...Array(3)].map((_, i) => (
-                                  <motion.div
-                                    key={i}
-                                    animate={{
-                                      scale: [1, 1.3, 1],
-                                      rotate: [0, 10, -10, 0],
-                                    }}
-                                    transition={{
-                                      duration: 2,
-                                      repeat: Infinity,
-                                      delay: i * 0.3,
-                                    }}
-                                  >
-                                    <Heart
-                                      className={`w-6 h-6 ${i === 0 ? "text-rose-400" : i === 1 ? "text-pink-400" : "text-red-400"} fill-current`}
-                                    />
-                                  </motion.div>
-                                ))}
-                              </div>
-                              <p className="text-gray-800 text-2xl font-light mb-2">
-                                Your Valentine's Surprise
-                              </p>
-                              <p className="text-rose-500 text-lg">
-                                Awaits you 💕
-                              </p>
-                            </div>
-                          </motion.div>
-                        )}
-
-                        {/* Scratch pattern - romantic style */}
-                        <div className="flex justify-center gap-2 pt-4">
-                          {[...Array(7)].map((_, i) => (
-                            <motion.div
-                              key={i}
-                              animate={{
-                                opacity: [0.3, 0.6, 0.3],
-                              }}
-                              transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                                delay: i * 0.1,
-                              }}
-                              className="w-8 h-1.5 bg-gradient-to-r from-rose-300 to-pink-300 rounded-full"
-                            />
-                          ))}
-                        </div>
+                       
                       </div>
                     </div>
 

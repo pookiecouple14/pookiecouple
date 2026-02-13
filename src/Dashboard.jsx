@@ -263,7 +263,7 @@ export default function Dashboard() {
         }
 
         const userId = localStorage.getItem("userId");
-        console.log("Fetching forms for userId:", userId);
+        // console.log("Fetching forms for userId:", userId);
 
         const res = await axios.get(`${API_BASE_URL}/user/${userId}/forms`, {
           headers: {
@@ -271,7 +271,7 @@ export default function Dashboard() {
           },
         });
 
-        console.log("Forms data:", res.data);
+        // console.log("Forms data:", res.data);
         setForms(res.data.forms);
         setLoading(false);
 
@@ -306,7 +306,7 @@ export default function Dashboard() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Responses data:", res.data); // Debug log
+      // console.log("Responses data:", res.data); 
       setResponses(res.data);
       setSelectedForm(formId);
       setShowResponses(true);
@@ -918,7 +918,7 @@ export default function Dashboard() {
                       >
                         <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-left">
                           <span className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-sm w-fit">
-                            Attempt #{response.attempt || responseIndex + 1}
+                           Attempt #{responses.responses.length - responseIndex}
                           </span>
                         </div>
                         <div className="flex items-center gap-2">

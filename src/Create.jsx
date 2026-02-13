@@ -1860,7 +1860,7 @@ function Create() {
                           For question context/reference
                         </p>
                         {fields[currentField].imageFile ? (
-                          <div className="relative h-[120px]">
+                          <div className="relative h-full">
                             <img
                               src={URL.createObjectURL(
                                 fields[currentField].imageFile,
@@ -1902,7 +1902,7 @@ function Create() {
                       </div>
                     </div>
 
-                    <div className="space-y-1.5">
+                    <div className="space-y-1.5 mt-5">
                       <Label>
                         <Radio className="h-3.5 w-3.5" />
                         Question Type
@@ -2128,7 +2128,7 @@ function Create() {
                         <img
                           src={URL.createObjectURL(reveal.revealImageFile)}
                           alt="Reveal"
-                          className="w-full h-48 object-cover rounded-xl"
+                          className="w-full h-full object-cover rounded-xl"
                         />
                         <Button
                           variant="destructive"
