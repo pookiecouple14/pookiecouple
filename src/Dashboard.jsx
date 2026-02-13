@@ -58,7 +58,6 @@ const SwipeToUnlockCareer = () => {
     if (info.point.x >= threshold) {
       window.open(
         "https://www.errormakesclever.com/valentine?workshop_id=67&source=Webinar_career_love_game",
-        "_blank"
       );
     }
     animate(dragX, 0, { type: "spring", stiffness: 400, damping: 30 });
