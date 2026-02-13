@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "./axios";
 import { motion } from "framer-motion";
+import love from "../src/assets/love-message.png";
 import {
   Plus,
   Trash2,
@@ -200,6 +201,7 @@ const Badge = React.forwardRef(
       draft: "bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-600",
       published:
         "bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-600",
+      login:"py-2 rounded-md bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-600 border border-2 border-green-200"  
     };
 
     return (
@@ -1503,8 +1505,8 @@ function Create() {
           <div className="flex items-center gap-2">
             {accessToken ? (
               <>
-                <Badge variant="success" className="text-xs">
-                  <Check className="h-3 w-3 mr-1" />
+                <Badge variant="login" className="text-xs">
+                
                   Logged In
                 </Badge>
                 <Button
@@ -1703,9 +1705,8 @@ function Create() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-2">
-                    <div className="p-2 rounded-lg bg-gradient-to-r from-pink-100 to-rose-100">
-                      <Heart className="h-8 w-8 text-pink-500" />
-                    </div>
+                    
+                    <img src={love} alt="" className="w-16 h-16"/>
                     <div>
                       <CardTitle>Memory Check: Love Edition</CardTitle>
                       <CardDescription>
