@@ -926,9 +926,9 @@ export default function Dashboard() {
                             {formatDate(response.submittedAt)}
                           </span>
                           {expandedResponses[responseIndex] ? (
-                            <ChevronUp className="w-5 h-5 text-pink-500" />
+                            <><span className="text-pink-500">Close</span><ChevronUp className="w-5 h-5 text-pink-500" /></>
                           ) : (
-                            <ChevronDown className="w-5 h-5 text-pink-500" />
+                            <><span className="text-pink-500">Open</span><ChevronDown className="w-5 h-5 text-pink-500" /></>
                           )}
                         </div>
                       </button>
@@ -949,7 +949,7 @@ export default function Dashboard() {
                           />
 
                           {/* Inner Circle */}
-                          <div className="absolute inset-[6px] rounded-full bg-white/90 backdrop-blur flex flex-col items-center justify-center shadow-sm">
+                          <div onClick={() => toggleResponse(responseIndex)} className="absolute inset-[6px] rounded-full bg-white/90 backdrop-blur flex flex-col items-center justify-center shadow-sm">
                             {/* Score */}
                             <div
                               className={`text-xl font-semibold bg-gradient-to-r ${getScoreColor(
