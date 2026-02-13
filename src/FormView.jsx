@@ -488,26 +488,41 @@ const FormView = () => {
         ctx.fill();
       }
 
-      // Shadow for text
+      // Shadow for text (NO blur filter here)
       ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
       ctx.shadowBlur = 10;
       ctx.shadowOffsetY = 3;
 
+      // Calculate responsive font sizes
+      const baseFontSize = Math.min(rect.width, rect.height) * 0.05;
+      const titleFontSize = Math.max(20, Math.min(32, baseFontSize));
+      const subtitleFontSize = Math.max(14, Math.min(20, baseFontSize * 0.7));
+      const smallFontSize = Math.max(12, Math.min(16, baseFontSize * 0.5));
+
       // Main text
       ctx.fillStyle = "rgba(255, 255, 255, 0.98)";
-      ctx.font = 'bold 26px "Poppins", Arial, sans-serif';
+      ctx.font = `bold ${titleFontSize}px "Poppins", Arial, sans-serif`;
       ctx.textAlign = "center";
       ctx.fillText(
         "💝 Scratch to Reveal 💝",
         rect.width / 2,
-        rect.height / 2 - 25,
+        rect.height / 2 - 40,
       );
 
-      ctx.font = '18px "Poppins", Arial, sans-serif';
+      ctx.font = `${subtitleFontSize}px "Poppins", Arial, sans-serif`;
       ctx.fillText(
         "Your Special Surprise",
         rect.width / 2,
-        rect.height / 2 + 25,
+        rect.height / 2 + 10,
+      );
+
+      // Additional romantic text
+      ctx.font = `italic ${smallFontSize}px "Poppins", Arial, sans-serif`;
+      ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+      ctx.fillText(
+        "A message from the heart",
+        rect.width / 2,
+        rect.height / 2 + 50,
       );
 
       ctx.shadowColor = "transparent";
@@ -556,17 +571,17 @@ const FormView = () => {
     let x, y;
     if (e.type.includes("touch")) {
       const touch = e.touches[0] || e.changedTouches[0];
-      x = (touch.clientX - rect.left) * dpr;
-      y = (touch.clientY - rect.top) * dpr;
+      x = touch.clientX - rect.left;
+      y = touch.clientY - rect.top;
     } else {
-      x = (e.clientX - rect.left) * dpr;
-      y = (e.clientY - rect.top) * dpr;
+      x = e.clientX - rect.left;
+      y = e.clientY - rect.top;
     }
 
     ctx.globalCompositeOperation = "destination-out";
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.lineWidth = 45 * dpr;
+    ctx.lineWidth = 70; // Increased from 45 to 70
 
     if (lastPointRef.current && isScratching) {
       ctx.beginPath();
@@ -575,7 +590,7 @@ const FormView = () => {
       ctx.stroke();
     } else {
       ctx.beginPath();
-      ctx.arc(x, y, 25 * dpr, 0, 2 * Math.PI);
+      ctx.arc(x, y, 40, 0, 2 * Math.PI); // Increased from 25 to 40
       ctx.fill();
     }
 
@@ -1275,9 +1290,6 @@ const FormView = () => {
                         >
                           {option.label}
                         </span>
-                        {answers[currentField.fieldId] === option.label && (
-                          <CheckCircle className="w-6 h-6 text-pink-500 ml-auto" />
-                        )}
                       </motion.label>
                     ))}
                   </div>
@@ -1296,17 +1308,6 @@ const FormView = () => {
                         className="w-full h-44 p-5 border-2 border-pink-100 rounded-2xl focus:border-pink-300 focus:ring-4 focus:ring-pink-100 focus:outline-none resize-none text-gray-800 bg-white shadow-lg transition-all placeholder:text-gray-400 text-base"
                         rows="5"
                       />
-                      {answers[currentField.fieldId] && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute top-4 right-4"
-                        >
-                          <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
-                            <CheckCircle className="w-6 h-6 text-emerald-600" />
-                          </div>
-                        </motion.div>
-                      )}
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="flex items-center gap-2 text-gray-500">
@@ -2070,9 +2071,10 @@ const FormView = () => {
                             className="relative"
                           >
                             <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full blur-2xl opacity-40" />
-                            <div className="relative w-28 h-28 bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 rounded-3xl flex items-center justify-center shadow-2xl">
+                            {/* <div className="relative w-28 h-28 bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 rounded-3xl flex items-center justify-center shadow-2xl">
                               <Heart className="w-14 h-14 text-white fill-white drop-shadow-2xl" />
-                            </div>
+                            </div> */}
+                            <img src={love} alt="" className="relative w-28 h-28"/>
                           </motion.div>
                         </div>
 
@@ -2086,7 +2088,7 @@ const FormView = () => {
                             {/* Romantic message preview */}
                             <div className="relative">
                               <div className="absolute inset-0 bg-gradient-to-r from-rose-200/50 to-pink-200/50 rounded-3xl blur-xl" />
-                              <div className="relative bg-white/90 backdrop-blur-sm rounded-3xl p-6 border border-white shadow-xl">
+                              <div className="relative bg-white/90 blur-xs backdrop-blur-sm rounded-3xl p-6 border border-white shadow-xl">
                                 <div className="flex justify-center mb-3">
                                   <span className="text-4xl">💌</span>
                                 </div>
@@ -2175,23 +2177,18 @@ const FormView = () => {
                     </div>
 
                     {/* Scratch canvas with romantic border effect */}
-                    <div className="absolute inset-4 rounded-3xl overflow-hidden shadow-inner">
-                      <div className="absolute inset-0 border-2 border-white/30 rounded-3xl pointer-events-none" />
-                      <div className="absolute inset-0 border border-white/60 rounded-3xl pointer-events-none" />
-
-                      <canvas
-                        ref={scratchCanvasRef}
-                        className="absolute inset-0 w-full h-full cursor-cell touch-none"
-                        onMouseDown={handleMouseDown}
-                        onMouseMove={handleMouseMove}
-                        onMouseUp={handleMouseUp}
-                        onMouseLeave={handleMouseUp}
-                        onTouchStart={handleTouchStart}
-                        onTouchMove={handleTouchMove}
-                        onTouchEnd={handleTouchEnd}
-                        style={{ touchAction: "none" }}
-                      />
-                    </div>
+                    <canvas
+                      ref={scratchCanvasRef}
+                      className="absolute inset-0 w-full h-full cursor-cell touch-none"
+                      onMouseDown={handleMouseDown}
+                      onMouseMove={handleMouseMove}
+                      onMouseUp={handleMouseUp}
+                      onMouseLeave={handleMouseUp}
+                      onTouchStart={handleTouchStart}
+                      onTouchMove={handleTouchMove}
+                      onTouchEnd={handleTouchEnd}
+                      
+                    />
 
                     {/* Progress indicator - Valentine's style */}
                     {scratchProgress > 0 && scratchProgress < 55 && (
@@ -2230,13 +2227,7 @@ const FormView = () => {
                                 </motion.div>
                               </div>
                             </div>
-                            <div className="text-2xl">
-                              {scratchProgress < 30
-                                ? "💖"
-                                : scratchProgress < 50
-                                  ? "💝"
-                                  : "💖"}
-                            </div>
+                            
                           </div>
                         </div>
                       </motion.div>
@@ -2361,6 +2352,43 @@ const FormView = () => {
           .scrollbar-thin::-webkit-scrollbar-thumb { background: #f9a8d4; border-radius: 20px; }
           .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #f472b6; }
         `}</style>
+
+        <style>{`
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-15px) rotate(-10deg); }
+    20%, 40%, 60%, 80% { transform: translateX(15px) rotate(10deg); }
+  }
+  @keyframes boom {
+    0% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.4) rotate(15deg); opacity: 0.9; }
+    100% { transform: scale(30) rotate(45deg); opacity: 0; }
+  }
+  .animate-fadeIn { animation: fadeIn 0.6s ease-out; }
+  .animate-slideUp { animation: slideUp 0.7s ease-out; }
+  .animate-shake { animation: shake 0.5s ease-in-out infinite; }
+  .animate-boom { animation: boom 0.8s ease-out forwards; }
+  .scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: #f9a8d4; border-radius: 20px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #f472b6; }
+  
+  /* Custom scratch cursor */
+  canvas[class*="cursor-cell"] {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="rgba(236, 72, 153, 0.3)" stroke="rgba(236, 72, 153, 0.8)" stroke-width="2"/><circle cx="20" cy="20" r="10" fill="rgba(255, 255, 255, 0.8)"/></svg>') 20 20, auto;
+  }
+  canvas[class*="cursor-cell"]:active {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="rgba(236, 72, 153, 0.5)" stroke="rgba(236, 72, 153, 1)" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="rgba(255, 255, 255, 1)"/></svg>') 20 20, auto;
+  }
+`}</style>
       </div>
     );
   }
