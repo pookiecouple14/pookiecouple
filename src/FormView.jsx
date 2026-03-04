@@ -188,7 +188,7 @@ const SwipeToUnlockCareer = () => {
     const threshold = trackWidth - thumbWidth - 20;
     if (info.point.x >= threshold) {
       window.open(
-        "https://www.errormakesclever.com/valentine?workshop_id=67&source=Webinar_career_love_game",
+        "https://www.errormakesclever.com",
         "_self"
       );
     }
